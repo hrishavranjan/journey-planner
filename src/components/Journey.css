@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400..700&family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400..700&family=Outfit:wght@100..900&family=Satisfy&display=swap');
+
+body {
+    color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, pink 10%, green, blue); /* Gradient from pink to green to blue */
+    
+    scroll-behavior: smooth; /* Enable smooth scrolling */
+}
+
+.journey-container {
+    padding: 10px;
+    font-family: "Outfit", serif;
+    text-align: center; /* Center all text inside the journey container */
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+    font-family: "Outfit", serif;
+    justify-content: flex-start; /* Align items to the left */
+    margin-bottom: 10px; /* Maintain bottom margin */
+    padding-top: 5px; /* Add padding to adjust the space from the top */
+}
+
+.logo {
+    width: 50px;
+    margin-right: 14px; /* Space between logo and other elements */
+    margin-top: 5px; /* Ensure no top margin */
+}
+
+.journey-title {
+    margin-top: 5px;
+    font-size: 40px;
+    font-family: "Satisfy", cursive;
+}
+
+.welcome-message {
+    font-size: 1.8rem; /* Adjust size as needed */
+    margin-top: 0px;
+    font-family: "Outfit", serif;
+    color: blue; /* Set text color to blue */
+}
+
+
+.new-journey-button {
+    padding: 12px 24px; /* Increased padding for larger button */
+    background-color: #ff0000; /* Bright red for the button */
+    color: rgb(255, 255, 255); /* White text for better contrast */
+    border: none;
+    font-family: "Outfit", serif;
+    border-radius: 8px; /* More rounded corners */
+    cursor: pointer;
+    font-size: 1.1rem; /* Slightly larger font size */
+    align-items: center;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.new-journey-button:hover {
+    background-color: darkgreen; /* Darken the button color on hover */
+}
+
+.popup {
+    position: fixed; /* Cover entire viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+.popup-content {
+    background-color: #3e338a; /* Darker background for the content */
+    border-radius: 10px;
+    font-family: "Outfit", serif;
+    padding: 40px; /* Increase padding for better appearance */
+    width: 90%; /* Set width to 90% of the viewport */
+    max-width: 600px; /* Set a maximum width */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.8);
+    overflow-y: auto; /* Enable vertical scroll if content overflows */
+    max-height: 80vh; /* Set maximum height */
+}
+
+.close-popup {
+    background-color: red;
+    color: white;
+    padding: 8px 16px; /* Increased padding for larger close button */
+    border: none;
+    cursor: pointer;
+    font-family: "Outfit", serif;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.close-popup:hover {
+    background-color: darkred; /* Darken button color on hover */
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: center; /* Center inputs within the input group */
+}
+
+.input-group input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    font-family: "Outfit", serif;
+    border-radius: 5px;
+    background-color: #444; /* Input background color */
+    color: white;
+}
+
+.travel-options {
+    display: flex;
+    flex-direction: column;
+    font-family: "Outfit", serif;
+    align-items: center; /* Center travel options */
+}
+
+/* Button for adding a place */
+.add-place-button {
+    background-color: green; /* Green color for the add place button */
+    color: white; /* White text */
+    padding: 12px 24px; /* Increased padding for larger button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Outfit", serif;
+    margin-top: 10px;
+    font-size: 1rem; /* Adjust font size as needed */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.add-place-button:hover {
+    background-color: darkgreen; /* Darken button color on hover */
+}
+
+/* Button for deleting */
+.delete-button {
+    background-color: crimson; /* Color for delete button */
+    color: white;
+    padding: 12px 24px; /* Increased padding for larger delete button */
+    border: none;
+    font-family: "Outfit", serif;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.delete-button:hover {
+    background-color: darkred; /* Darken delete button on hover */
+}
+
+.packed-strikethrough {
+    text-decoration: line-through;
+}
+
+.visited-strikethrough {
+    text-decoration: line-through;
+}
+
+.trips-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    row-gap: 18px; /* Space between rows */
+    column-gap: 45px; /* Space between columns */
+    padding: 100px; /* Padding around the grid */
+}
+
+.trip-box {
+    background: linear-gradient(120deg, black, #903030); /* Gradient background from black to #903030 */
+    color: white; /* Text color */
+    padding: 16px;
+    border-radius: 8px;
+    border: 2px solid white; /* Thick white border */
+    box-shadow: 0 2px 4px rgba(192, 130, 130, 0.1);
+    transition: background 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Gradient background on hover */
+.trip-box:hover {
+    background-image: linear-gradient(to right, orange, blue); /* Gradient background on hover */
+}
+
+/* Button styles */
+.show-more-button {
+    background-color: green; /* Green background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    font-family: "Outfit", serif;
+    padding: 10px 15px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect */
+.show-more-button:hover {
+    background-color: darkgreen; /* Darker green on hover */
+}
+
+/* Active effect */
+.show-more-button:active {
+    background-color: lightgreen; /* Lighter green when pressed */
+}
+
+.new-journey-button:focus,
+.add-place-button:focus,
+.delete-button:focus,
+.show-more-button:focus {
+    outline: 3px solid yellow; /* Outline for focus */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .journey-title {
+        font-size: 30px; /* Smaller font size for title */
+    }
+
+    .welcome-message {
+        font-size: 1.5rem; /* Smaller font size for welcome message */
+    }
+
+    .new-journey-button {
+        padding: 10px 20px; /* Smaller padding for buttons */
+        font-size: 1rem; /* Adjust font size */
+    }
+
+    .popup-content {
+        padding: 20px; /* Reduced padding for mobile */
+        width: 90%; /* Ensure it uses full width */
+        max-width: 100%; /* Allow full width on small screens */
+    }
+
+    .trips-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for small screens */
+        padding: 20px; /* Reduced padding */
+    }
+
+    .trip-box {
+        padding: 12px; /* Reduced padding for trip boxes */
+    }
+
+    .add-place-button, 
+    .delete-button {
+        padding: 10px 15px; /* Smaller button padding */
+        font-size: 0.9rem; /* Adjust font size */
+    }
+}
+
+@media (max-width: 480px) {
+    .journey-title {
+        font-size: 30px; /* Further reduced font size */
+    }
+
+    .welcome-message {
+        font-size: 1.2rem; /* Further reduced welcome message size */
+    }
+
+    .trips-container {
+        grid-template-columns: 1fr; /* 1 column for very small screens */
+    }
+
+    .new-journey-button,
+    .add-place-button,
+    .delete-button {
+        padding: 8px 12px; /* Smaller button padding */
+        font-size: 0.8rem; /* Further adjusted font size */
+    }
+
+    .popup-content {
+        padding: 15px; /* Smaller padding for very small screens */
+    }
+}
+.social-media-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .social-media-icons a {
+    margin: 0 10px;
+    color: white; /* Change color as needed */
+    text-decoration: none;
+  }
+  
+  .social-media-icons a:hover {
+    color: #f00; /* Change hover color as needed */
+  }
+  

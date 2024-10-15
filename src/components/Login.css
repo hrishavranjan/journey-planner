@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400..700&family=Outfit:wght@100..900&family=Satisfy&display=swap');
+
+.login {
+  display: flex;
+  justify-content: space-between; /* Space between left and right panels */
+  align-items: center;
+  min-height: 100vh; /* Use min-height for full viewport height */
+  width: 100vw; /* Full viewport width */
+  background: 
+    url('../assets/login.jpg') no-repeat center center; /* Center the background image */
+  background-size: cover; /* Ensure the image covers the entire screen */
+  color: #fff; /* White text */
+  position: relative; /* For positioning child elements if needed */
+  z-index: 1; /* Ensure login elements are above the background */
+  overflow: hidden; /* Prevent overflow on small screens */
+}
+
+.left-panel {
+  width: 35%; /* Decrease width for left panel */
+  padding: 20px; /* Padding for content */
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  color: #fff; /* Text color */
+  position: absolute; /* Absolute positioning */
+  top: 20px; /* Move further up from the top */
+  left: 20px; /* Space from the left */
+  z-index: 2; /* Ensure it stays above other elements */
+  font-family: "Satisfy", cursive;
+  opacity: 0.9;
+}
+
+.sign-in-box {
+  background-color: rgba(255, 255, 255, 0.8); /* Default white background with transparency */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px; /* Padding for inner content */
+  width: 20%; /* Decrease width for smaller screens */
+  max-width: 700px; /* Max width for larger screens */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+  position: absolute; /* Use absolute positioning */
+  right: 20px; /* Space from the right edge */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for center */
+  z-index: 2; /* Ensure above the background */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect with decreased opacity */
+.sign-in-box:hover {
+  background-color: rgba(255, 255, 255, 0.6); /* Decrease opacity on hover */
+}
+
+/* Additional styles for responsiveness */
+@media (max-width: 768px) {
+  .login {
+    flex-direction: column; /* Stack panels vertically */
+    align-items: center; /* Center align */
+  }
+
+  .left-panel {
+    width: 90%; /* Full width for smaller screens */
+    padding: 5px; /* Adjust padding for smaller devices */
+  }
+
+  .sign-in-box {
+    width: 80%; /* Increase width for smaller screens */
+    margin: 20px 0; /* Margin for spacing */
+  }
+
+  input {
+    width: 100%; /* Full width for inputs */
+  }
+  
+  h2 {
+    font-size: 24px; /* Adjust font size for headings */
+  }
+ 
+  .google-sign-in,
+  .custom-button,
+  .guest-sign-in {
+    padding: 12px; /* Adjust button padding */
+    font-size: 14px; /* Adjust font size for buttons */
+  }
+
+  .social-media {
+    flex-direction: column; /* Stack icons vertically for small screens */
+    padding: 5px; /* Adjust padding for smaller devices */
+  }
+
+  .social-media a {
+    margin: 5px 0; /* Margin between stacked icons */
+  }
+}
+
+/* Additional media query for extra small devices */
+@media (max-width: 480px) {
+  .sign-in-box {
+    width: 80%; /* Further increase width for very small screens */
+  }
+  
+  h2 {
+    font-size: 20px; /* Further reduce heading size */
+  }
+}
+
+.login h2 {
+  margin-bottom: 20px;
+  color: #000; /* Change heading color to black for visibility */
+  text-align: center; /* Center the heading */
+}
+
+input {
+  width: 90%; /* Full width */
+  padding: 10px; /* Padding for inputs */
+  margin: 10px 0; /* Margin for spacing */
+  border: 1px solid #ccc; /* Border style */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.google-sign-in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  width: 100%;
+  margin-top: 10px; 
+  background: linear-gradient(90deg, #4285F4, #DB4437); /* Gradient from Google colors */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.google-sign-in:hover {
+  background: linear-gradient(90deg, #DB4437, #4285F4); /* Reverse gradient on hover */
+}
+
+.google-icon {
+  margin-right: 8px; /* Space between icon and text */
+  font-size: 20px; /* Increase icon size */
+}
+
+.custom-button {
+  margin-top: 10px; /* Spacing between buttons */
+  padding: 10px;
+  width: 100%;
+  background: linear-gradient(90deg, #000000, #175dac); /* Gradient from black to blue */
+  color: white; /* Text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease; /* Smooth transition for background change */
+}
+
+.custom-button:hover {
+  background: linear-gradient(90deg, #1fa088, #000000); /* Reverse gradient on hover */
+}
+
+.guest-sign-in {
+  margin-top: 10px; /* Spacing between buttons */
+  padding: 10px;
+  width: 100%;
+  background: linear-gradient(90deg, #000000, #1fa); /* Gradient from black to blue */
+  color: white; /* Text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease; /* Smooth transition for background change */
+}
+
+.guest-sign-in:hover {
+  background: linear-gradient(90deg, #175dac, #000000); /* Reverse gradient on hover */
+}
+
+#recaptcha-container {
+  margin-top: 15px; /* Space above reCAPTCHA */
+}
+
+p {
+  color: rgb(239, 26, 26); /* Error message color */
+  margin-top: 10px; /* Margin for spacing */
+  font-size: 14px; /* Font size */
+  text-align: center; /* Center the text */
+  font-family: "Outfit", serif;
+}
+
+.special-paragraph {
+  color: rgb(251, 250, 250); /* Special paragraph color */
+  margin-top: -25px; /* Margin for spacing */
+  font-size: 14px; /* Font size */
+  text-align: center; /* Center the text */
+  font-family: "Outfit", serif;
+}
+
+/* Social Media Handles */
+.social-media {
+  display: flex;
+  justify-content: center; /* Center social media links */
+  bottom: 10px; /* Margin above social media section */
+  background: linear-gradient(90deg, blue, green); /* Gradient background for social media icons */
+  padding: 10px; /* Padding around the icons */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.social-media a {
+  color: #fff; /* White color for social media links */
+  margin: 0 10px; /* Spacing between links */
+  text-decoration: none; /* Remove underline */
+  font-size: 18px; /* Increase font size for better visibility */
+}
+
+.social-media a:hover {
+  text-decoration: underline; /* Underline on hover */
+}

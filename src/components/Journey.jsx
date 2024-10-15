@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebaseConfig'; // Import Firestore
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import { FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa'; // Import social media icons
 import './Journey.css'; // Import the CSS file
 
 const Journey = ({ user }) => {
@@ -12,7 +11,7 @@ const Journey = ({ user }) => {
   const [placesToVisit, setPlacesToVisit] = useState([{ name: '', visited: false, added: false }]);
   const [localContacts, setLocalContacts] = useState([{ name: '', number: '', added: false }]);
   const [expenses, setExpenses] = useState([{ amount: '', description: '', added: false }]);
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState(''); // Added notes state
   const [showPopup, setShowPopup] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState(null);
 
@@ -34,7 +33,7 @@ const Journey = ({ user }) => {
       packingList,
       placesToVisit,
       localContacts,
-      notes,
+      notes, // Included notes in trip data
       expenses,
     };
 
@@ -52,7 +51,7 @@ const Journey = ({ user }) => {
       setPackingList([{ name: '', packed: false, added: false }]);
       setPlacesToVisit([{ name: '', visited: false, added: false }]);
       setLocalContacts([{ name: '', number: '', added: false }]);
-      setNotes('');
+      setNotes(''); // Reset notes
       setExpenses([{ amount: '', description: '', added: false }]);
       setShowPopup(false);
     } catch (e) {
@@ -249,7 +248,7 @@ const Journey = ({ user }) => {
                       <div>
                         <input
                           type="text"
-                          placeholder="Contact Name"
+                          placeholder="Name"
                           value={contact.name}
                           onChange={(e) => {
                             const updatedContacts = localContacts.map((c, idx) =>
@@ -260,7 +259,7 @@ const Journey = ({ user }) => {
                         />
                         <input
                           type="text"
-                          placeholder="Contact Number"
+                          placeholder="Number"
                           value={contact.number}
                           onChange={(e) => {
                             const updatedContacts = localContacts.map((c, idx) =>
@@ -269,7 +268,11 @@ const Journey = ({ user }) => {
                             setLocalContacts(updatedContacts);
                           }}
                         />
-                        <button onClick={() => handleAddContact(index)}>Add</button>
+                        <button
+                          onClick={() => handleAddContact(index)}
+                        >
+                          Add
+                        </button>
                       </div>
                     )}
                   </div>
@@ -277,16 +280,6 @@ const Journey = ({ user }) => {
                 <button onClick={() => setLocalContacts([...localContacts, { name: '', number: '', added: false }])}>
                   Add Contact
                 </button>
-              </div>
-
-              {/* Notes */}
-              <div className="notes">
-                <h4>Notes:</h4>
-                <textarea
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Add any notes..."
-                />
               </div>
 
               {/* Expenses */}
@@ -316,7 +309,11 @@ const Journey = ({ user }) => {
                         setExpenses(updatedExpenses);
                       }}
                     />
-                    <button onClick={() => handleAddExpense(index)}>Add</button>
+                    <button
+                      onClick={() => handleAddExpense(index)}
+                    >
+                      Add
+                    </button>
                   </div>
                 ))}
                 <button onClick={() => setExpenses([...expenses, { amount: '', description: '', added: false }])}>
@@ -324,69 +321,89 @@ const Journey = ({ user }) => {
                 </button>
               </div>
 
-              <button onClick={handleAddTrip}>Submit Trip</button>
-              <button onClick={() => setShowPopup(false)}>Cancel</button>
+              {/* Notes */}
+              <div className="notes">
+                <h4>Notes:</h4>
+                <textarea
+                  placeholder="Enter your notes here..."
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                />
+              </div>
+
+              <button onClick={handleAddTrip}>Add Trip</button>
             </div>
+            <button onClick={() => setShowPopup(false)}>Close</button>
           </div>
         </div>
       )}
 
-      <div className="trip-list">
+      <div className="trips-container">
         {trips.map((trip, index) => (
           <div key={index} className="trip-box">
             <h3>{trip.destination}</h3>
-            <button onClick={() => handleDeleteTrip(index)}>Delete</button>
-            <button onClick={() => toggleShowMore(index)}>Show More</button>
+            <button onClick={() => toggleShowMore(index)}>
+              {expandedIndex === index ? 'Show Less<-' : 'Show More->'}
+            </button>
+
             {expandedIndex === index && (
               <div className="trip-details">
-                <h4>Travel Options:</h4>
-                <p>{trip.travelOptions.join(', ')}</p>
-                <h4>Packing List:</h4>
-                <ul>
+                <h4>Travel Options: {trip.travelOptions.join(', ')}</h4>
+
+                {/* Packing List Display */}
+                <div className="packing-list-display">
+                  <h5>Packing List:</h5>
                   {trip.packingList.map((item, idx) => (
-                    <li key={idx} className={item.packed ? 'packed-strikethrough' : ''}>{item.name}</li>
+                    <div key={idx}>
+                      <input type="checkbox" checked={item.packed} readOnly />
+                      <span className={item.packed ? 'packed-strikethrough' : ''}>{item.name}</span>
+                    </div>
                   ))}
-                </ul>
-                <h4>Places to Visit:</h4>
-                <ul>
+                </div>
+
+                {/* Places to Visit Display */}
+                <div className="places-to-visit-display">
+                  <h5>Places to Visit:</h5>
                   {trip.placesToVisit.map((place, idx) => (
-                    <li key={idx} className={place.visited ? 'visited-strikethrough' : ''}>{place.name}</li>
+                    <div key={idx}>
+                      <input type="checkbox" checked={place.visited} readOnly />
+                      <span className={place.visited ? 'visited-strikethrough' : ''}>{place.name}</span>
+                    </div>
                   ))}
-                </ul>
-                <h4>Local Contacts:</h4>
-                <ul>
+                </div>
+
+                {/* Local Contacts Display */}
+                <div className="local-contacts-display">
+                  <h5>Local Contacts:</h5>
                   {trip.localContacts.map((contact, idx) => (
-                    <li key={idx}>{contact.name} - {contact.number}</li>
+                    <div key={idx}>{contact.name} - {contact.number}</div>
                   ))}
-                </ul>
-                <h4>Expenses:</h4>
-                <ul>
+                </div>
+
+                {/* Expenses Display */}
+                <div className="expenses-display">
+                  <h5>Expenses:</h5>
                   {trip.expenses.map((expense, idx) => (
-                    <li key={idx}>{expense.amount} - {expense.description}</li>
+                    <div key={idx}>{expense.amount} - {expense.description}</div>
                   ))}
-                </ul>
-                <h4>Notes:</h4>
-                <p>{trip.notes}</p>
+                </div>
+
+                {/* Notes Display */}
+                <div className="notes-display">
+                  <h5>Notes:</h5>
+                  <p>{trip.notes}</p>
+                </div>
+
+                <button onClick={() => handleDeleteTrip(index)}>Delete Trip</button>
               </div>
             )}
           </div>
         ))}
       </div>
-
-      {/* Social Media Icons */}
-      <div className="social-media-icons">
-        <a href="https://www.linkedin.com/in/hrishav-ranjan-6b358a254/" target="_blank" rel="noopener noreferrer">
-          <FaLinkedin size={30} />
-        </a>
-        <a href="https://github.com/hrishavranjan" target="_blank" rel="noopener noreferrer">
-          <FaGithub size={30} />
-        </a>
-        <a href="https://www.instagram.com/rishavranjan__/" target="_blank" rel="noopener noreferrer">
-          <FaInstagram size={30} />
-        </a>
-      </div>
+      
     </div>
   );
 };
+
 
 export default Journey;

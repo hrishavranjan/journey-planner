@@ -132,9 +132,7 @@ const Login = ({ setUser, handleGuestLogin, db }) => {
           Continue with Google
         </button>
         
-        <button className="guest-sign-in" onClick={handleGuestLogin}>
-          Continue as Guest
-        </button> {/* Updated guest button */}
+        
 
         <p>
           {isRegistering ? "Already have an account?" : "Don't have an account?"} 

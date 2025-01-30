@@ -1,20 +1,18 @@
-// import './App.css';
 import React, { useEffect, useState } from "react";
-import { auth, db } from "./firebaseConfig"; // Ensure db is imported
+import { auth, db, provider } from "./firebaseConfig";
 import {
   onAuthStateChanged,
   signOut,
   signInWithPopup,
-  GoogleAuthProvider,
+  signInWithRedirect,
 } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore"; // Import Firestore functions
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import Login from "./components/Login";
 import Journey from "./components/Journey";
 
 const App = () => {
   const [user, setUser] = useState(null);
   const [isGuest, setIsGuest] = useState(false);
-  const provider = new GoogleAuthProvider();
 
   useEffect(() => {
     const guestStatus = localStorage.getItem("isGuest");
@@ -29,14 +27,14 @@ const App = () => {
         setIsGuest(false);
         localStorage.removeItem("isGuest");
 
-        // Fetch user data from Firestore
-        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-        if (!userDoc.exists()) {
-          // If user document doesn't exist, create one
-          await setDoc(doc(db, "users", currentUser.uid), {
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+        
+        if (!userSnap.exists()) {
+          await setDoc(userRef, {
             name: currentUser.displayName,
             email: currentUser.email,
-            journeyItems: [], // Initialize with empty journey items
+            journeyItems: [],
           });
         }
       } else {
@@ -73,12 +71,12 @@ const App = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      setUser(result.user);
-      setIsGuest(false);
-      localStorage.removeItem("isGuest");
+      await signInWithPopup(auth, provider);
     } catch (error) {
-      console.error("Error during Google login: ", error);
+      console.error("Google login failed:", error);
+      if (error.code === "auth/popup-blocked") {
+        await signInWithRedirect(auth, provider);
+      }
     }
   };
 
@@ -86,14 +84,14 @@ const App = () => {
     <div className="app">
       {user || isGuest ? (
         <>
-          <Journey user={user} /> {/* Pass user to Journey component */}
+          <Journey user={user} />
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
         <Login
           setUser={setUser}
           handleGuestLogin={handleGuestLogin}
-          handleGoogleLogin={handleGoogleLogin} // Pass down Google login handler
+          handleGoogleLogin={handleGoogleLogin}
         />
       )}
     </div>
